@@ -27,12 +27,18 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen>
     with TickerProviderStateMixin {
+  //make the data member of AnimationController
   late AnimationController _controller;
+  //Make the data memeber of Tween
+  final tween = Tween<double>(begin: 0, end: 2 * pi);
+  //Make the variable name of the Animation
+  late Animation _animation;
   @override
   void initState() {
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 3));
+    _animation = tween.animate(_controller);
     _controller.repeat();
   }
 
@@ -138,7 +144,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                 animation: _controller.view,
                                 builder: ((context, child) {
                                   return Transform.rotate(
-                                    angle: _controller.value * 2 * pi,
+                                    angle: _animation.value,
                                     child: child,
                                   );
                                 }),
@@ -214,7 +220,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           animation: _controller.view,
                           builder: ((context, child) {
                             return Transform.rotate(
-                              angle: _controller.value * 2 * pi,
+                              angle: _animation.value,
                               child: child,
                             );
                           }),
